@@ -2,6 +2,8 @@
 
 - notebook加载变量只需要一边，之后就会存到内存中
   - 为了可读性，不要在之前的格子提取后面格子的数据
+- 不熟悉某个模块或者函数的时候，直接xxxx?，在notebook中就会输出帮助
+  - 或者help(xxxx)
 
 ## Jupyter Notebook 魔法命令
 
@@ -25,3 +27,23 @@
   <!-- - 输出CPU time和wall time
     - 多线程中wall time(物理世界时间) < CPU time(所有核心加起来的运行时间) -->
   - 运行几个小时的算法测试一次就可以
+
+
+## Numpy
+
+- python的list中可以存储任意类型的数据
+  - 但是效率就会地下
+- 可以使用array，存储单一类型
+  - 效率提升
+  - 但是array只是将存储中的数据当作一个二维数组来看
+    - 没有看作向量或者矩阵，也没有匹配向量或者矩阵相关的运算
+
+- 所以就有numpy框架
+  - numpy.array，也只能存储一种类型的数据
+  - numpy.arange，可以生成浮点数的数列
+  - numpy.linspace，也可以生成数列，包括起始点，终止点的指定个数的等差数列
+  - numpy.random，随机算法，可以指定np.random.seed()，这样生成的随机数会固定，方便调试
+  
+- python中list的切片会产生一个新的list
+  - 但是*numpy.arrya中的切片是引用，所以修改会对原矩阵进行修改*
+  - 如果需要新的副本，使用切片后加上.copy
