@@ -51,3 +51,5 @@
 - 机器学习中的scikit-learn封装的函数接收的都是numpy
   - pandas中有dataframe类型，对数据处理更加方便
   - 可以使用pandas对数据进行预处理之后转化成numpy之后传入
+
+- 一开始对数据进行一些基础可视化，有助于更好的选取
