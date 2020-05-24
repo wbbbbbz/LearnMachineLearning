@@ -64,8 +64,17 @@
   - 明可夫斯基距离: p = 1是曼哈顿距离，p=2是欧拉距离
   - 超参数p
 
+- 更多的距离定义
+  - 向量空间余弦相似度Cosine Similarity
+  - 调整余弦相似度Adjusted Cosine Similarity
+  - 皮尔森相关系数Pearson Correlation Coefficient
+  - Jaccard相似系数Jaccard Coefficient
+  - 在scikit learn中的metric可以进行定义
+
 - 网格搜索
   - 对于k, p的每一个点进行搜索
   - 而且超参数之间还有依赖关系，比如考虑距离与否和明可夫斯基距离有依赖关系
 
-## 寻找超参数
+## 数据归一化
+
+- 欧拉距离会被数据的绝对大小所影响
