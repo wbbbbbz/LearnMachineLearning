@@ -47,3 +47,7 @@
 - python中list的切片会产生一个新的list
   - 但是*numpy.arrya中的切片是引用，所以修改会对原矩阵进行修改*
   - 如果需要新的副本，使用切片后加上.copy
+
+- 机器学习中的scikit-learn封装的函数接收的都是numpy
+  - pandas中有dataframe类型，对数据处理更加方便
+  - 可以使用pandas对数据进行预处理之后转化成numpy之后传入
