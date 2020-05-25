@@ -45,3 +45,25 @@
     - 均方根误差RMSE(Root Mean Squared Error)
   - 平均绝对误差MAE(Mean Absolute Error)
   - 使用最小二乘法的话训练的时候就是将MSE最小化的过程
+
+- 但是RMSE和MAE还是存在问题，不同数据无法直接进行比较
+  - 使用R Squared
+  - 1- (Residual Sum of Squares) / (Total Sum of Squares)
+    - Residual Sum of Squares: 使用模型预测产生的错误
+    - Total Sum of Squares：使用Baseline模型(y = y bar)预测产生的错误
+    - 相当于评价了使用模型没有产生错误的指标
+
+## R Squared
+
+- R^2 <= 1
+  - 越大越好，不犯任何错误就是R^2 = 1
+  - 模型等于基准模型时R^2 = 0
+  - 如果R^2 < 0说明还不如基准模型，说明数据不存在任何**线性关系**
+  - 1 - (MSE/variance)
+
+
+## 多元线性回归
+
+- 多元线性回归的正规方程解(Normal Equation)
+  - 时间复杂度高:O(n^3)，可优化至(O(n^2.4))
+  - 优点：不需要对数据做归一化处理
