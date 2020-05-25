@@ -10,4 +10,5 @@
 - [第 2 章 机器学习基础](notes/Chapter2.md)
 - [第 3 章 Jupyter Notebook, Numpy和Matplotlib](notes/Chapter3.md)
 - [第 4 章 最基础的分类算法-k近邻算法 kNN](notes/Chapter4.md)
+- [第 5 章 线性回归法](notes/Chapter5.md)
 
