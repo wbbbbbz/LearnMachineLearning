@@ -11,4 +11,5 @@
 - [第 3 章 Jupyter Notebook, Numpy和Matplotlib](notes/Chapter3.md)
 - [第 4 章 最基础的分类算法-k近邻算法 kNN](notes/Chapter4.md)
 - [第 5 章 线性回归法](notes/Chapter5.md)
+- [第 6 章 PCA与梯度上升法](notes/Chapter6.md)
 
