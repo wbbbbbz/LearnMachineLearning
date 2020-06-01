@@ -82,7 +82,8 @@ class LinearRegression:
         """根据训练数据集X_train, y_train, 使用随机梯度下降法训练Linear Regression模型"""
         assert X_train.shape[0] == y_train.shape[0], \
             "the size of X_train must be equal to the size of y_train"
-        assert n_iters >= 1
+        assert n_iters >= 1, \
+            "all datas are required to used at least 1 time."
 
         # 对随机的一行直接计算梯度方向，不需要除以m
         def dJ_sgd(theta, X_b_i, y_i):
@@ -118,6 +119,74 @@ class LinearRegression:
         X_b = np.hstack([np.ones((len(X_train), 1)), X_train])
         initial_theta = np.random.randn(X_b.shape[1])
         self._theta = sgd(X_b, y_train, initial_theta, n_iters, t0, t1)
+
+        self.intercept_ = self._theta[0]
+        self.coef_ = self._theta[1:]
+
+        return self
+
+    # 小批量梯度下降法
+    # t0, t1用以计算学习率，模拟退火
+    # n_iters描述的是对所有样本看几圈。至少整体看几遍
+    # k是小批量的大小，默认为10.如果样本大小大于10则默认为样本大小，也就退化成批量随机梯度法
+    def fit_mbgd(self, X_train, y_train, n_iters=50, t0=5, t1=50, k=10):
+        """根据训练数据集X_train, y_train, 使用小批量梯度下降法训练Linear Regression模型"""
+        assert X_train.shape[0] == y_train.shape[0], \
+            "the size of X_train must be equal to the size of y_train"
+        assert n_iters >= 1, \
+            "all datas are required to used at least 1 time."
+        assert k >= 1, \
+            "the size of mini-batch must be at least 1"
+
+        # 直接计算梯度方向
+
+        def dJ_mbgd(theta, X_b_mb, y_mb):
+            return X_b_mb.T.dot((X_b_mb.dot(theta) - y_mb)) * 2 / len(y_mb)
+
+        # 随机梯度下降过程
+        def mbgd(X_b, y, initial_theta, n_iters=5, t0=5, t1=50, k=10):
+
+            # 计算学习率，模拟退火
+            def learning_rate(t):
+                return t0 / (t + t1)
+
+            theta = initial_theta
+            # 整体重复次数是ceil(n_iters*m/k)
+            m = len(X_b)
+
+            itertimes = 1
+
+            # 每一批minibatch的索引值
+            minibatchindexes = np.array([np.arange(i*k, (i+1)*k, 1)
+                                         for i in range(m//k)])
+            if (minibatchindexes[-1, -1] + 1 != m):
+                np.append(minibatchindexes,
+                          np.arange(minibatchindexes[-1, -1]+1, m, 1))
+
+            batches = minibatchindexes.shape[0]
+
+            # 因为损失函数的值是跳跃的，不一定是递减的
+            # 这里不适合使用epsilon进行判断，因为小于epsilon可能只是梯度的问题
+            # 所以直接保证循环次数即可
+            for _ in range(n_iters):
+                # 通过乱序排列，保证每一次数据都是乱序的
+                indexes = np.random.permutation(m)
+                X_b_new = X_b[indexes, :]
+                y_new = y[indexes]
+
+                for i in range(batches):
+                    gradient = dJ_mbgd(
+                        theta, X_b_new[minibatchindexes[i]], y_new[minibatchindexes[i]])
+                    theta = theta - learning_rate(itertimes) * gradient
+                    itertimes += 1
+
+            return theta
+
+        X_b = np.hstack([np.ones((len(X_train), 1)), X_train])
+        initial_theta = np.random.randn(X_b.shape[1])
+        if (k > len(X_b)):
+            k = len(X_b)
+        self._theta = mbgd(X_b, y_train, initial_theta, n_iters, t0, t1, k)
 
         self.intercept_ = self._theta[0]
         self.coef_ = self._theta[1:]
