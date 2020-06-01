@@ -24,7 +24,7 @@ class LinearRegression:
         return self
 
     def fit_bgd(self, X_train, y_train, eta=0.01, n_iters=1e4):
-        """根据训练数据集X_train, y_train, 使用梯度下降法训练Linear Regression模型"""
+        """根据训练数据集X_train, y_train, 使用批量梯度下降法训练Linear Regression模型"""
         assert X_train.shape[0] == y_train.shape[0], \
             "the size of X_train must be equal to the size of y_train"
 
@@ -70,26 +70,39 @@ class LinearRegression:
 
         return self
 
+    # t0, t1用以计算学习率，模拟退火
+    # n_iters描述的是对所有样本看几圈。至少整体看几遍
     def fit_sgd(self, X_train, y_train, n_iters=50, t0=5, t1=50):
-        """根据训练数据集X_train, y_train, 使用梯度下降法训练Linear Regression模型"""
+        """根据训练数据集X_train, y_train, 使用随机梯度下降法训练Linear Regression模型"""
         assert X_train.shape[0] == y_train.shape[0], \
             "the size of X_train must be equal to the size of y_train"
         assert n_iters >= 1
 
+        # 对随机的一行直接计算梯度方向，不需要除以m
         def dJ_sgd(theta, X_b_i, y_i):
             return X_b_i * (X_b_i.dot(theta) - y_i) * 2.
 
+        # 随机梯度下降过程
         def sgd(X_b, y, initial_theta, n_iters=5, t0=5, t1=50):
 
+            # 计算学习率，模拟退火
             def learning_rate(t):
                 return t0 / (t + t1)
 
             theta = initial_theta
+            # 整体重复次数是n_iters*m
             m = len(X_b)
+
+            # 因为损失函数的值是跳跃的，不一定是递减的
+            # 这里不适合使用epsilon进行判断，因为小于epsilon可能只是梯度的问题
+            # 所以直接保证循环次数即可
             for i_iter in range(n_iters):
+                # 通过乱序排列，保证每一次数据都是乱序的
                 indexes = np.random.permutation(m)
                 X_b_new = X_b[indexes, :]
                 y_new = y[indexes]
+
+                # 使用两重循环，保证每一次循环看所有的样本
                 for i in range(m):
                     gradient = dJ_sgd(theta, X_b_new[i], y_new[i])
                     theta = theta - learning_rate(i_iter * m + i) * gradient
