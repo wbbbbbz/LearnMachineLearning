@@ -14,4 +14,5 @@
 - [第 6 章 梯度下降法](notes/Chapter6.md)
 - [第 7 章 PCA与梯度上升法](notes/Chapter7.md)
 - [第 8 章 多项式回归与模型泛化](notes/Chapter8.md)
+- [第 9 章 逻辑回归](notes/Chapter9.md)
 
