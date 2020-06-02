@@ -11,7 +11,7 @@ class PCA:
         self.components_ = None
 
     # k定义梯度上升法中的batch大小
-    def fit(self, X, eta=0.01, n_iters=1e4, k=10):
+    def fit(self, X, eta=0.01, n_iters=1e4):
         """获得数据集X的前n个主成分"""
         assert self.n_components <= X.shape[1], \
             "n_components must not be greater than the feature number of X"
@@ -35,7 +35,7 @@ class PCA:
             return w / np.linalg.norm(w)
 
         #  求出X矩阵的第一主成分，批量梯度上升法
-        def first_component(X, initial_w, eta=0.01, n_iters=1e4, epsilon=1e-8, k=10):
+        def first_component(X, initial_w, eta=0.01, n_iters=1e4, epsilon=1e-8):
 
             w = direction(initial_w)
             cur_iter = 0
@@ -43,40 +43,20 @@ class PCA:
             # 样本数m
             m = len(X)
 
-            if (k == m):
-                while cur_iter < n_iters:
-                    gradient = df(w, X)
-                    last_w = w
-                    # 梯度上升
-                    w = w + eta * gradient
-                    w = direction(w)
-                    if (abs(f(w, X) - f(last_w, X)) < epsilon):
-                        break
+            while cur_iter < n_iters:
+                gradient = df(w, X)
+                last_w = w
+                # 梯度上升
+                w = w + eta * gradient
+                w = direction(w)
+                if (abs(f(w, X) - f(last_w, X)) < epsilon):
+                    break
 
-                    cur_iter += 1
-            else:
-                # 每一批minibatch的索引值
-                minibatchindexes = np.array([np.arange(i*k, (i+1)*k, 1)
-                                             for i in range(m//k)])
-                if (minibatchindexes[-1, -1] + 1 != m):
-                    np.append(minibatchindexes,
-                              np.arange(minibatchindexes[-1, -1]+1, m, 1))
-
-                batches = minibatchindexes.shape[0]
-                for _ in range(n_iters):
-                    indexes = np.random.permutation(m)
-                    X_batch = X[indexes, :]
-
-                    for i in range(batches):
-                        gradient = df(w, X_batch[minibatchindexes[i]])
-                        w = w + eta * gradient
-                        w = direction(w)
+                cur_iter += 1
 
             return w
 
         X_pca = demean(X)
-        if (k > len(X)):
-            k = len(X)
         # 主成分矩阵，(k, n)，k是主成分个数，n是特征数
         self.components_ = np.empty(shape=(self.n_components, X.shape[1]))
         for i in range(self.n_components):

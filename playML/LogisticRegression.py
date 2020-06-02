@@ -1,6 +1,7 @@
 import numpy as np
 from .metrics import accuracy_score
 
+
 class LogisticRegression:
 
     def __init__(self):
@@ -9,6 +10,7 @@ class LogisticRegression:
         self.intercept_ = None
         self._theta = None
 
+    # 将线性回归结果换算成概率的sigmoid函数
     def _sigmoid(self, t):
         return 1. / (1. + np.exp(-t))
 
@@ -17,16 +19,22 @@ class LogisticRegression:
         assert X_train.shape[0] == y_train.shape[0], \
             "the size of X_train must be equal to the size of y_train"
 
+        # 损失函数
         def J(theta, X_b, y):
+            # 线性回归中的yhat在这里实际上就是sigmoid之后的数值
             y_hat = self._sigmoid(X_b.dot(theta))
+            # 对计算结果太大进行异常处理，返回浮点数最大值
             try:
+                # 通过这一个式子将y=0和y=1的情况合并
                 return - np.sum(y*np.log(y_hat) + (1-y)*np.log(1-y_hat)) / len(y)
             except:
                 return float('inf')
 
+        # 通过求梯度得到的dJ式，与线性回归的dJ式子结构相似。
         def dJ(theta, X_b, y):
             return X_b.T.dot(self._sigmoid(X_b.dot(theta)) - y) / len(y)
 
+        # 批量梯度下降法
         def gradient_descent(X_b, y, initial_theta, eta, n_iters=1e4, epsilon=1e-8):
 
             theta = initial_theta
@@ -45,7 +53,8 @@ class LogisticRegression:
 
         X_b = np.hstack([np.ones((len(X_train), 1)), X_train])
         initial_theta = np.zeros(X_b.shape[1])
-        self._theta = gradient_descent(X_b, y_train, initial_theta, eta, n_iters)
+        self._theta = gradient_descent(
+            X_b, y_train, initial_theta, eta, n_iters)
 
         self.intercept_ = self._theta[0]
         self.coef_ = self._theta[1:]
@@ -70,6 +79,7 @@ class LogisticRegression:
             "the feature number of X_predict must be equal to X_train"
 
         proba = self.predict_proba(X_predict)
+        # 判断元素是否>=0.5，是的元素返回1
         return np.array(proba >= 0.5, dtype='int')
 
     def score(self, X_test, y_test):
