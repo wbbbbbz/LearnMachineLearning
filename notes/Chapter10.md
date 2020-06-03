@@ -71,3 +71,16 @@
   - 靠外：可以使用面积计算
 
 ## ROC曲线(ROC Curve)
+
+- Receiver Operation Characteristic Curve
+  - 描述TPR和FPR之间的关系
+
+- TPR:True Positive Rate
+  - 就是recall=TP/(TP+FN)
+  - positive预测为positive占所有positive的比例
+
+- FPR:False Positive Rate
+  - FPR=FP/(FP+TN)
+  - negative预测为positive占所有negative的比例
+
+- TPR越高，FPR也越高(threshold降低)
