@@ -112,3 +112,9 @@
 
 - sklearn中的gradientboostingclassifier
 
+## Stacking
+
+- 通过子模型预测若干个结果，然后通过这些结果再训练一个模型
+- 层数可以不断堆叠
+- 与深度学习非常相似
+

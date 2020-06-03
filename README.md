@@ -18,4 +18,6 @@
 - [第 10 章 分类算法的评价](notes/Chapter10.md)
 - [第 11 章 支撑向量机SVM](notes/Chapter11.md)
 - [第 12 章 决策树](notes/Chapter12.md)
+- [第 13 章 集成学习和随机森林](notes/Chapter13.md)
+- [第 14 章 结语](notes/Chapter14.md)
 
