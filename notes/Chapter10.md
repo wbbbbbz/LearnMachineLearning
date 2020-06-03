@@ -46,4 +46,15 @@
   - 算术平均值的话是两个值的影响
   - 调和平均值的话如果一个值特别小，那么会受该值影响F1也特别小
     - 只有当两个值都比较大的时候，F1才比较大
-  - 
+
+## Precision-Recall的平衡
+
+- 决策边界可以写成θT.dot(xb)=threshold
+- 这样的话可以平移决策边界，只有大于threshold的时候才会被分类进某个分类
+- 此时引入一个新的超参数threshold
+- 改变threshold时可以改变精准率和召回率
+  - threshold偏向于positive一边的时候，精准率变高，召回率变低
+  - threshold偏向于negative一边的时候，精准率变低，召回率变高
+  - threshold增高：必须由高概率的时候才判断为positive
+  - threshold变低：只要有一点概率都判断为positive
+
