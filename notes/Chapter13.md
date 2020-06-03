@@ -45,4 +45,33 @@
   - 一般使用Bagging
   - Bagging不受随机影响
   - 统计学中放回取样：bootstrap
+- sklearn中集成为Bagging
 
+## OOB Out-of-Bag
+
+- 放回取样导致一部分样本很有可能没有取到
+  - 平均大约有37%的样本没有取到：Out-of-Bag
+  - 每一个样本抽不到的概率时1/e
+    - [BootstrapSample(有放回抽样)_cholocatehe的专栏-CSDN博客_怎么实现bootstrap有放回](https://blog.csdn.net/cholocatehe/article/details/42130341)
+
+- 所以干脆不适用测试数据集，而使用这部分没有取到的样本左测试/验证
+  - sklearn中有oob.score_参数
+
+## Bagging的更多探讨
+
+- Bagging的思路极易并行化处理
+  - sklearn中有n_jobs的参数
+
+- 针对特征进行随机采样Random Subspaces
+  - 样本特征非常多的情况，比如图像识别，像素点特征特别多
+  - 每一次取样是在子空间中取样
+
+- 既针对样本，又针对特征进行随机采样Random Patches
+  - 既在行方向上取样，又在列方向上取样
+  - sklearn中有bootstarap_features(特征)，max_features
+
+- 不想取样的时候只要将max_samples或max_features填入实际samples数和features数即可
+
+## 随机森林
+
+- 由多个决策树组成的随机森林
