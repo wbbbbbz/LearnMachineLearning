@@ -16,4 +16,5 @@
 - [第 8 章 多项式回归与模型泛化](notes/Chapter8.md)
 - [第 9 章 逻辑回归](notes/Chapter9.md)
 - [第 10 章 分类算法的评价](notes/Chapter10.md)
+- [第 11 章 支撑向量机SVM](notes/Chapter11.md)
 
