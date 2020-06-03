@@ -17,4 +17,5 @@
 - [第 9 章 逻辑回归](notes/Chapter9.md)
 - [第 10 章 分类算法的评价](notes/Chapter10.md)
 - [第 11 章 支撑向量机SVM](notes/Chapter11.md)
+- [第 12 章 决策树](notes/Chapter12.md)
 
