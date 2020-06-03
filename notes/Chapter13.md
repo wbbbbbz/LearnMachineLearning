@@ -75,3 +75,18 @@
 ## 随机森林
 
 - 由多个决策树组成的随机森林
+  - Base Estimator: Decision Tree
+
+- sklearn封装了随机森林类RandomForestClassifier
+  - sklearn的默认随机森林的决策树在节点划分上，在随机的特征子集上寻找最优划分特征。
+    - 这种随机性使得子模型的随机性增大
+
+- 极其随机森林Extra-Trees
+  - 决策树在节点划分上，使用随机的特征和随机的阈值
+  - sklearn中ExtraTreesClassifier
+  - 提供额外的随机性，抑制过拟合，但增大了bias
+  - 增加偏差，抑制方差
+  - 更快的训练速度
+
+## 集成学习解决回归问题
+- sklearn中baggingregressor, randomforestregressor, extratreesregressor
