@@ -90,3 +90,25 @@
 
 ## 集成学习解决回归问题
 - sklearn中baggingregressor, randomforestregressor, extratreesregressor
+
+## Boosting
+
+- 另一种集成模型的方法
+  - 每个模型都在尝试增强(Boosting)整体的效果
+- 也可以解决回归问题
+
+### Ada Boosting
+
+- 每一次生成的子模型都是为了弥补上一个子模型学习中的错误
+  - 错误分类的点权重增加
+  - sklearn中的adaboostclassifier
+
+### Gradient Boosting
+
+- 训练一个模型m1，产生错误e1
+  - 针对e1训练第二个模型m2，产生错误e2
+  - 针对e2训练第二个模型m3，产生错误e3
+  - 最终预测结果是m1+m2+m3...
+
+- sklearn中的gradientboostingclassifier
+
