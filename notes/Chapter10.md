@@ -58,3 +58,16 @@
   - threshold增高：必须由高概率的时候才判断为positive
   - threshold变低：只要有一点概率都判断为positive
 
+## Precision-Recall Curve(PR Curve)
+- 横轴precision，纵轴recall
+  - 逐渐减小的倾向
+  - precision增加，recall减小
+  - 能观测到一个急剧下降的点
+  - 急剧下降开始的点可能就是比较好的平衡位置
+
+- 通过PR Curve，结合数据特性和目的，选取最合适的threshold
+
+- 如果存在多个模型(不同超参数)，某个模型PR曲线更靠外，那么该模型更好
+  - 靠外：可以使用面积计算
+
+## ROC曲线(ROC Curve)
