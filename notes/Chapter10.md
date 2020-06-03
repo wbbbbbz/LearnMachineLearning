@@ -90,3 +90,8 @@
 - 这个时候关注的是该曲线的面积
 - 所以sklearn中有roc_auc_score
   - Area under curve
+
+## 多分类问题中的评价指标
+
+- 混淆矩阵天生支持多分类问题
+- 可以将混淆矩阵可视化(matplot)，然后找出哪里混淆比较多，然后对该分类问题进行threshold微调
