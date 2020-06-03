@@ -84,3 +84,9 @@
   - negative预测为positive占所有negative的比例
 
 - TPR越高，FPR也越高(threshold降低)
+
+- FPR自变量，TPR因变量
+- ROC越靠左上越好，因为FPR越小的时候TPR就很高比较好
+- 这个时候关注的是该曲线的面积
+- 所以sklearn中有roc_auc_score
+  - Area under curve
